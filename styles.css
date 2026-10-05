@@ -106,9 +106,9 @@ h1 { font-size: clamp(2.4rem, 6vw, 3.8rem); line-height: 1.08; letter-spacing: -
 
 /* TIMELINE */
 .timeline { position: relative; padding-left: 28px; border-left: 1px solid var(--line); }
-.timeline li { position: relative; padding-bottom: 40px; }
-.timeline li:last-child { padding-bottom: 0; }
-.timeline li::before {
+.timeline > li { position: relative; padding-bottom: 40px; }
+.timeline > li:last-child { padding-bottom: 0; }
+.timeline > li::before {
   content: ""; position: absolute; left: -34px; top: 7px;
   width: 11px; height: 11px; border-radius: 50%;
   background: var(--bg); border: 2px solid var(--accent);
