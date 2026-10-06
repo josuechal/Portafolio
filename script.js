@@ -13,6 +13,12 @@ themeBtn.addEventListener("click", () => {
   try { localStorage.setItem("theme", next); } catch {}
 });
 
+// Barra superior: más opaca y con sombra cuando se baja la página
+const nav = document.querySelector(".nav");
+const onScroll = () => nav.classList.toggle("scrolled", window.scrollY > 10);
+window.addEventListener("scroll", onScroll, { passive: true });
+onScroll();
+
 // Menú móvil
 document.getElementById("burger").addEventListener("click", () => menu.classList.toggle("open"));
 menu.addEventListener("click", (e) => { if (e.target.tagName === "A") menu.classList.remove("open"); });

@@ -6,8 +6,12 @@
   --line: #e7e5e4;
   --accent: #4f46e5;
   --accent-soft: #eef2ff;
+  --side: #e8e6f4;          /* color de las bandas laterales */
+  --side-glow: rgba(99, 102, 241, .22);
+  --side-dot: rgba(79, 70, 229, .18);
+  --glass: rgba(250, 250, 249, .55);
   --radius: 14px;
-  --maxw: 960px;
+  --maxw: 1200px;
 }
 :root[data-theme="dark"] {
   --bg: #0c0a09;
@@ -17,13 +21,23 @@
   --line: #292524;
   --accent: #818cf8;
   --accent-soft: #1e1b4b;
+  --side: #05040a;
+  --side-glow: rgba(129, 140, 248, .20);
+  --side-dot: rgba(129, 140, 248, .22);
+  --glass: rgba(12, 10, 9, .50);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; scroll-padding-top: 72px; }
 body {
   font-family: "Inter", system-ui, sans-serif;
-  background: var(--bg);
+  /* Fondo de las bandas laterales: color + resplandores + puntos */
+  background:
+    radial-gradient(600px 400px at 0% 10%, var(--side-glow), transparent 70%),
+    radial-gradient(600px 400px at 100% 60%, var(--side-glow), transparent 70%),
+    radial-gradient(var(--side-dot) 1px, transparent 1px) 0 0 / 22px 22px,
+    var(--side);
+  background-attachment: fixed;
   color: var(--text);
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
@@ -36,11 +50,22 @@ ul, ol { list-style: none; }
 .nav {
   position: fixed; inset: 0 0 auto 0; z-index: 10;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 14px max(20px, calc((100% - var(--maxw)) / 2));
-  background: color-mix(in srgb, var(--bg) 82%, transparent);
-  backdrop-filter: blur(12px);
+  padding: 14px max(20px, calc((100% - var(--maxw)) / 2 + 40px));
+  /* Efecto cristal: semitransparente + desenfoque */
+  background: var(--glass);
+  backdrop-filter: blur(18px) saturate(170%);
+  -webkit-backdrop-filter: blur(18px) saturate(170%);
   border-bottom: 1px solid var(--line);
+  transition: background .3s, box-shadow .3s;
 }
+/* Línea de color degradada en el borde inferior */
+.nav::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: .6;
+}
+/* Al hacer scroll: un poco más opaco y con sombra (clase añadida desde script.js) */
+.nav.scrolled { background: color-mix(in srgb, var(--bg) 78%, transparent); box-shadow: 0 8px 30px rgba(0, 0, 0, .12); }
 .logo { font-weight: 700; font-size: 1.3rem; text-decoration: none; letter-spacing: -.5px; }
 .logo span { color: var(--accent); }
 #menu { display: flex; gap: 26px; }
@@ -57,8 +82,17 @@ ul, ol { list-style: none; }
 .burger { display: none; }
 
 /* LAYOUT */
-main { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
+/* Panel central: otro color y bordes a los lados */
+main {
+  position: relative; z-index: 0;
+  max-width: var(--maxw); min-height: 100vh; margin: 0 auto; padding: 0 40px;
+  background: var(--bg);
+  border-left: 1px solid var(--line); border-right: 1px solid var(--line);
+  box-shadow: 0 0 60px rgba(0, 0, 0, .10);
+  transition: background .3s;
+}
 section { padding: 90px 0 30px; }
+#sobre-mi { padding-top: 40px; }
 h2 { font-size: 1.6rem; letter-spacing: -.5px; margin-bottom: 32px; display: flex; align-items: baseline; gap: 12px; }
 .num { font-family: "JetBrains Mono", monospace; font-size: .85rem; color: var(--accent); font-weight: 400; }
 h3 { font-size: 1.05rem; font-weight: 600; }
@@ -66,11 +100,26 @@ h3 { font-size: 1.05rem; font-weight: 600; }
 
 /* HERO */
 .hero {
-  min-height: 100vh; padding-top: 110px;
+  position: relative;
+  min-height: auto; padding-top: 120px; padding-bottom: 0;
   display: grid; grid-template-columns: 1fr 260px; align-items: center; gap: 48px;
 }
 .eyebrow { font-family: "JetBrains Mono", monospace; color: var(--accent); font-size: .9rem; margin-bottom: 10px; }
-h1 { font-size: clamp(2.4rem, 6vw, 3.8rem); line-height: 1.08; letter-spacing: -2px; }
+h1 {
+  font-size: clamp(2.4rem, 6vw, 3.8rem); line-height: 1.08; letter-spacing: -2px;
+  /* Nombre con degradado de color */
+  background: linear-gradient(120deg, var(--text) 30%, var(--accent));
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+/* Resplandor suave detrás de la portada */
+.hero::before {
+  content: ""; position: absolute; z-index: -1; pointer-events: none;
+  top: 0; left: -40px; right: -40px; height: 520px;
+  background:
+    radial-gradient(420px 260px at 85% 35%, var(--side-glow), transparent 70%),
+    radial-gradient(360px 220px at 10% 20%, var(--accent-soft), transparent 70%);
+}
 .role { font-size: 1.25rem; color: var(--muted); margin: 12px 0 20px; }
 .cursor { color: var(--accent); animation: blink 1s steps(2) infinite; }
 @keyframes blink { 50% { opacity: 0; } }
@@ -91,7 +140,7 @@ h1 { font-size: clamp(2.4rem, 6vw, 3.8rem); line-height: 1.08; letter-spacing: -
   position: relative; width: 260px; height: 260px; border-radius: 50%;
   background: var(--accent-soft); border: 1px solid var(--line);
   display: grid; place-items: center; overflow: hidden;
-  box-shadow: 0 0 0 10px var(--bg), 0 0 0 11px var(--line);
+  box-shadow: 0 0 0 10px var(--bg), 0 0 0 11px var(--line), 0 20px 60px var(--side-glow);
 }
 .avatar img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
 .initials { font-size: 4rem; font-weight: 700; color: var(--accent); letter-spacing: -2px; }
@@ -132,7 +181,7 @@ h1 { font-size: clamp(2.4rem, 6vw, 3.8rem); line-height: 1.08; letter-spacing: -
   background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
   padding: 24px; transition: transform .25s, border-color .25s;
 }
-.card:hover { transform: translateY(-4px); border-color: var(--accent); }
+.card:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: 0 12px 30px var(--side-glow); }
 .card h3 { margin: 6px 0 4px; }
 
 /* CERTS */
@@ -168,6 +217,9 @@ footer { text-align: center; padding: 28px 20px; border-top: 1px solid var(--lin
 
 /* RESPONSIVE */
 @media (max-width: 760px) {
+  main { padding: 0 20px; border: 0; box-shadow: none; }
+  .nav { padding: 14px 20px; }
+  .hero::before { left: -20px; right: -20px; }
   .burger { display: block; }
   #menu {
     position: absolute; top: 100%; left: 0; right: 0;
