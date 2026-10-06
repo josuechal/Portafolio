@@ -1,0 +1,12 @@
+﻿# Archivos locales que NO deben subirse
+1_76221643.jpg
+*.bak
+.env
+.env.*
+.vscode/
+.claude/
+Thumbs.db
+desktop.ini
+
+# El backend vive en su propio proyecto (E:\ApiAccesos), no en el portafolio
+backend/
