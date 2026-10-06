@@ -1,6 +1,6 @@
 /* Panel de administración: barra lateral + secciones. Reutiliza styles.css y forms.css */
 
-:root { --maxw: 1160px; }
+:root { --maxw: 1500px; }
 
 .dash {
   display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 36px; align-items: start;
