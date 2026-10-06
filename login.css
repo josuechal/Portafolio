@@ -1,4 +1,4 @@
-/* Estilos exclusivos del login. Reutiliza las variables y el panel de styles.css */
+/* Estilos exclusivos del login. Reutiliza las variables y el panel de styles.css y los formularios de forms.css */
 
 .auth {
   display: grid; place-items: center;
@@ -16,21 +16,6 @@
 .auth-card h1 { font-size: 2rem; letter-spacing: -1px; }
 .auth-card .lead { font-size: .92rem; margin: 8px 0 24px; min-height: 1.2em; }
 
-form { display: grid; gap: 18px; }
-.field label { display: block; font-size: .85rem; font-weight: 600; margin-bottom: 6px; }
-
-.auth input {
-  width: 100%; padding: 12px 14px;
-  font: inherit; font-size: .95rem; color: var(--text);
-  background: var(--bg); border: 1px solid var(--line); border-radius: 10px;
-  transition: border-color .2s, box-shadow .2s;
-}
-.auth input::placeholder { color: var(--muted); opacity: .6; }
-.auth input:focus {
-  outline: none; border-color: var(--accent);
-  box-shadow: 0 0 0 4px var(--accent-soft);
-}
-
 .pw { position: relative; }
 .pw input { padding-right: 84px; }
 .show {
@@ -40,74 +25,11 @@ form { display: grid; gap: 18px; }
   background: var(--accent-soft); border: 0;
 }
 
-/* Medidor de seguridad de la contraseña */
-.meter { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 10px; }
-.meter i { height: 4px; border-radius: 99px; background: var(--line); transition: background .25s; }
-.meter[data-level="1"] i:nth-child(-n+1) { background: #ef4444; }
-.meter[data-level="2"] i:nth-child(-n+2) { background: #f59e0b; }
-.meter[data-level="3"] i:nth-child(-n+3) { background: #84cc16; }
-.meter[data-level="4"] i:nth-child(-n+4) { background: #22c55e; }
-.hint { font-size: .78rem; color: var(--muted); margin-top: 8px; }
-
-.msg { min-height: 1.2em; font-size: .85rem; color: var(--muted); }
-.msg[data-type="error"] { color: #ef4444; }
-.msg[data-type="ok"] { color: #22c55e; }
-
-.auth .btn { width: 100%; cursor: pointer; font: inherit; font-weight: 600; }
-.auth .btn:disabled { opacity: .55; cursor: not-allowed; transform: none; }
+.auth .btn { width: 100%; }
 
 .session-info { font-size: .92rem; color: var(--muted); margin-bottom: 16px; }
 .session-info b { color: var(--text); }
-
-.extra { text-align: center; margin-top: 20px; }
-.link {
-  background: none; border: 0; cursor: pointer; font: inherit; font-size: .82rem;
-  color: var(--muted); border-bottom: 1px solid var(--line);
-}
-.link:hover { color: var(--accent); border-color: var(--accent); }
 .note { text-align: center; font-size: .72rem; color: var(--muted); margin-top: 18px; opacity: .8; }
-
-/* ---------- Panel del administrador ---------- */
-.auth-card.wide { width: min(100%, 640px); }
-.admin-title { font-size: 1.1rem; margin: 28px 0 4px; display: block; }
-
-.invite { display: grid; grid-template-columns: 1fr auto; gap: 10px; margin: 16px 0 6px; }
-.auth .invite .btn { width: auto; padding: 0 20px; }
-
-.codebox {
-  margin: 14px 0; padding: 14px 16px; border-radius: 12px;
-  background: var(--accent-soft); border: 1px dashed var(--accent);
-  font-size: .85rem; display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
-}
-.codebox p { flex-basis: 100%; }
-.codebox code {
-  font-family: "JetBrains Mono", monospace; font-size: 1.3rem; letter-spacing: 3px;
-  color: var(--accent); user-select: all;
-}
-
-.users { margin-top: 14px; border-top: 1px solid var(--line); }
-.users li {
-  display: grid; grid-template-columns: 1fr auto; gap: 6px 12px; align-items: center;
-  padding: 12px 0; border-bottom: 1px solid var(--line); font-size: .9rem;
-}
-.u-mail { overflow-wrap: anywhere; }
-.u-actions { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px; }
-
-.badge { font-size: .72rem; padding: 3px 10px; border-radius: 99px; background: var(--line); color: var(--muted); }
-.badge.on { background: rgba(34, 197, 94, .15); color: #22c55e; }
-.badge.pending { background: rgba(245, 158, 11, .15); color: #f59e0b; }
-.badge.off { background: rgba(239, 68, 68, .15); color: #ef4444; }
-.badge.admin { background: var(--accent-soft); color: var(--accent); }
-
-.mini {
-  padding: 4px 12px; border-radius: 8px; cursor: pointer;
-  font: inherit; font-size: .78rem; color: var(--text);
-  background: transparent; border: 1px solid var(--line); transition: border-color .2s, color .2s;
-}
-.mini:hover { border-color: var(--accent); color: var(--accent); }
-.mini.danger:hover { border-color: #ef4444; color: #ef4444; }
-
-[hidden] { display: none !important; }
 
 @media (max-width: 760px) {
   .auth { padding-top: 90px; }

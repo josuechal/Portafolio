@@ -1,0 +1,70 @@
+/* Componentes compartidos por el login, el panel y los comentarios del portafolio */
+
+form { display: grid; gap: 18px; }
+.field label { display: block; font-size: .85rem; font-weight: 600; margin-bottom: 6px; }
+
+.field input, .field textarea, .invite input {
+  width: 100%; padding: 12px 14px;
+  font: inherit; font-size: .95rem; color: var(--text);
+  background: var(--bg); border: 1px solid var(--line); border-radius: 10px;
+  transition: border-color .2s, box-shadow .2s;
+}
+.field textarea { resize: vertical; min-height: 110px; line-height: 1.5; }
+.field input::placeholder, .field textarea::placeholder, .invite input::placeholder { color: var(--muted); opacity: .6; }
+.field input:focus, .field textarea:focus, .invite input:focus {
+  outline: none; border-color: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+
+.hint { font-size: .78rem; color: var(--muted); margin-top: 8px; }
+.msg { min-height: 1.2em; font-size: .85rem; color: var(--muted); }
+.msg[data-type="error"] { color: #ef4444; }
+.msg[data-type="ok"] { color: #22c55e; }
+
+button.btn { cursor: pointer; font: inherit; font-weight: 600; }
+button.btn:disabled { opacity: .55; cursor: not-allowed; transform: none; }
+
+/* Campo trampa contra bots: invisible para personas */
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+
+/* Etiquetas de estado */
+.badge { font-size: .72rem; padding: 3px 10px; border-radius: 99px; background: var(--line); color: var(--muted); white-space: nowrap; }
+.badge.on { background: rgba(34, 197, 94, .15); color: #22c55e; }
+.badge.pending { background: rgba(245, 158, 11, .15); color: #f59e0b; }
+.badge.off { background: rgba(239, 68, 68, .15); color: #ef4444; }
+.badge.admin { background: var(--accent-soft); color: var(--accent); }
+
+/* Botones pequeños de acción */
+.mini {
+  padding: 4px 12px; border-radius: 8px; cursor: pointer;
+  font: inherit; font-size: .78rem; color: var(--text);
+  background: transparent; border: 1px solid var(--line); transition: border-color .2s, color .2s;
+}
+.mini:hover { border-color: var(--accent); color: var(--accent); }
+.mini.danger:hover { border-color: #ef4444; color: #ef4444; }
+
+/* Código de acceso recién generado */
+.codebox {
+  margin: 14px 0; padding: 14px 16px; border-radius: 12px;
+  background: var(--accent-soft); border: 1px dashed var(--accent);
+  font-size: .85rem; display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
+}
+.codebox p { flex-basis: 100%; }
+.codebox code {
+  font-family: "JetBrains Mono", monospace; font-size: 1.3rem; letter-spacing: 3px;
+  color: var(--accent); user-select: all;
+}
+
+/* Formulario de autorizar y lista de filas */
+.invite { display: grid; grid-template-columns: 1fr auto; gap: 10px; margin: 16px 0 6px; }
+.invite .btn { padding: 0 20px; }
+
+.rows { margin-top: 14px; border-top: 1px solid var(--line); }
+.rows li {
+  display: grid; grid-template-columns: 1fr auto; gap: 6px 12px; align-items: center;
+  padding: 12px 0; border-bottom: 1px solid var(--line); font-size: .9rem;
+}
+.row-main { overflow-wrap: anywhere; }
+.row-actions { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px; }
+
+[hidden] { display: none !important; }

@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="forms.css">
 </head>
 <body>
 
@@ -19,6 +20,7 @@
     <a href="#experiencia">Experiencia</a>
     <a href="#habilidades">Habilidades</a>
     <a href="#formacion">Formación</a>
+    <a href="#comentarios">Comentarios</a>
     <a href="#contacto">Contacto</a>
     <a href="login.html">Iniciar sesión</a>
   </nav>
@@ -145,9 +147,34 @@
     </ul>
   </section>
 
+  <!-- COMENTARIOS -->
+  <section id="comentarios" class="reveal">
+    <h2><span class="num">05</span> Comentarios</h2>
+    <p class="lead">¿Quieres dejar tu opinión sobre mi trabajo? Escribe tu nombre y un comentario. Se publica cuando lo revisa el administrador.</p>
+
+    <div class="cm-grid">
+      <form id="cmForm" class="cm-form" novalidate>
+        <div class="field">
+          <label for="cmName">Nombre</label>
+          <input type="text" id="cmName" name="name" placeholder="Tu nombre" maxlength="40" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="cmBody">Comentario</label>
+          <textarea id="cmBody" name="body" placeholder="Cuéntame qué opinas…" maxlength="300" rows="4" required></textarea>
+          <p class="hint"><span id="cmCount">0</span> / 300 caracteres</p>
+        </div>
+        <input class="hp" type="text" id="cmWebsite" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <p class="msg" id="cmMsg" role="status" aria-live="polite"></p>
+        <button type="submit" id="cmSubmit" class="btn primary">Enviar comentario</button>
+      </form>
+
+      <ul class="cm-list" id="cmList" aria-live="polite"></ul>
+    </div>
+  </section>
+
   <!-- CONTACTO -->
   <section id="contacto" class="reveal contact">
-    <h2><span class="num">05</span> Contacto</h2>
+    <h2><span class="num">06</span> Contacto</h2>
     <p class="lead">¿Tienes un proyecto o una oportunidad en mente? Escríbeme, con gusto conversamos.</p>
     <a class="big-mail" href="mailto:josuechallco4@gmail.com">josuechallco4@gmail.com</a>
     <ul class="contact-list">
@@ -160,8 +187,13 @@
 
 <footer>
   <p>© <span id="year"></span> Josue Challco Soto. Hecho con HTML, CSS y JS.</p>
+  <p class="footnote">Este sitio cuenta visitas de forma anónima: no guarda tu IP, nombre ni correo.</p>
 </footer>
 
 <script src="script.js"></script>
+<script src="config.js"></script>
+<script src="core.js"></script>
+<script src="track.js"></script>
+<script src="comments.js"></script>
 </body>
 </html>

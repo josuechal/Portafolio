@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Panel | Josue Challco</title>
+  <meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://*.supabase.co; form-action 'self'; base-uri 'none'; object-src 'none'">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="forms.css">
+  <link rel="stylesheet" href="panel.css">
+</head>
+<body>
+
+<header class="nav">
+  <a href="index.html" class="logo">jc<span>.</span></a>
+  <nav id="menu">
+    <a href="index.html">← Volver al portafolio</a>
+  </nav>
+  <div class="nav-actions">
+    <button id="theme" class="icon-btn" aria-label="Cambiar tema">◐</button>
+    <button id="burger" class="icon-btn burger" aria-label="Abrir menú">☰</button>
+  </div>
+</header>
+
+<main class="dash">
+  <!-- Barra lateral (solo administrador) -->
+  <aside class="side">
+    <p class="eyebrow">Panel de administración</p>
+    <nav class="side-nav" aria-label="Secciones del panel">
+      <button type="button" data-view="stats" class="active">Estadísticas</button>
+      <button type="button" data-view="emails">Correos autorizados</button>
+      <button type="button" data-view="comments">Comentarios <span class="count" id="pendingCount" hidden></span></button>
+    </nav>
+    <div class="side-foot">
+      <p id="who"></p>
+      <button type="button" id="logout" class="mini">Cerrar sesión</button>
+    </div>
+  </aside>
+
+  <div class="views">
+    <p class="msg" id="pageMsg" role="status" aria-live="polite"></p>
+
+    <!-- ESTADÍSTICAS -->
+    <section class="view" id="view-stats" aria-labelledby="t-stats">
+      <h2 class="view-title" id="t-stats">Estadísticas</h2>
+      <p class="view-sub">Personas que han entrado a tu portafolio. Se cuenta una visita por persona y día, sin guardar datos personales.</p>
+
+      <div class="kpis" id="kpis">
+        <div class="kpi"><span>Visitas hoy</span><b id="k-today">–</b></div>
+        <div class="kpi"><span>Personas, últimos 7 días</span><b id="k-7">–</b></div>
+        <div class="kpi"><span>Personas, últimos 30 días</span><b id="k-30">–</b></div>
+        <div class="kpi"><span>Personas en total</span><b id="k-total">–</b></div>
+        <div class="kpi"><span>Con sesión iniciada</span><b id="k-signed">–</b></div>
+      </div>
+
+      <div class="filters" role="group" aria-label="Rango de fechas">
+        <button type="button" class="seg" data-range="7">7 días</button>
+        <button type="button" class="seg active" data-range="30" aria-pressed="true">30 días</button>
+        <button type="button" class="seg" data-range="90">90 días</button>
+      </div>
+
+      <div class="chart-card" id="chartCard">
+        <div class="chart-head">
+          <div>
+            <h3>Visitas por día</h3>
+            <p>Personas distintas que entraron cada día</p>
+          </div>
+          <button type="button" class="mini" id="tableToggle" aria-pressed="false">Ver tabla</button>
+        </div>
+
+        <div class="chart" id="chart">
+          <div class="plot" id="plot">
+            <div class="ticks" id="ticks" aria-hidden="true"></div>
+            <div class="bars" id="bars" role="list" aria-label="Visitas por día"></div>
+            <div class="tip" id="tip" hidden></div>
+          </div>
+          <div class="xaxis" id="xaxis" aria-hidden="true"></div>
+        </div>
+
+        <div class="tbl-wrap" id="tableWrap" hidden>
+          <table class="tbl">
+            <thead><tr><th>Día</th><th>Personas</th></tr></thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- CORREOS AUTORIZADOS -->
+    <section class="view" id="view-emails" aria-labelledby="t-emails" hidden>
+      <h2 class="view-title" id="t-emails">Correos autorizados</h2>
+      <p class="view-sub">Solo estos correos pueden entrar. Al autorizar uno se genera su código de acceso: lo verás una sola vez, entrégaselo a la persona.</p>
+
+      <form id="inviteForm" class="invite" novalidate>
+        <input type="email" id="inviteEmail" placeholder="correo@ejemplo.com" autocomplete="off" maxlength="120" required>
+        <button type="submit" id="inviteBtn" class="btn primary">Autorizar</button>
+      </form>
+      <p class="msg" id="emailMsg" role="status" aria-live="polite"></p>
+
+      <div class="codebox" id="codeBox" hidden>
+        <p>Código de acceso para <b id="codeFor"></b>. Se muestra <b>una sola vez</b>:</p>
+        <code id="codeValue"></code>
+        <button type="button" id="codeCopy" class="mini">Copiar</button>
+      </div>
+
+      <ul class="rows" id="emailList"></ul>
+    </section>
+
+    <!-- COMENTARIOS -->
+    <section class="view" id="view-comments" aria-labelledby="t-comments" hidden>
+      <h2 class="view-title" id="t-comments">Comentarios</h2>
+      <p class="view-sub">Los comentarios nuevos quedan pendientes. Solo se muestran en tu portafolio cuando los apruebas.</p>
+      <p class="msg" id="commentMsg" role="status" aria-live="polite"></p>
+      <ul class="rows" id="commentList"></ul>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <p>© <span id="year"></span> Josue Challco Soto.</p>
+</footer>
+
+<script src="script.js"></script>
+<script src="config.js"></script>
+<script src="core.js"></script>
+<script src="panel.js"></script>
+</body>
+</html>

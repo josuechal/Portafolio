@@ -1,0 +1,97 @@
+/* Panel de administración: barra lateral + secciones. Reutiliza styles.css y forms.css */
+
+:root { --maxw: 1160px; }
+
+.dash {
+  display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 36px; align-items: start;
+  padding-top: 96px; padding-bottom: 70px;
+}
+
+/* ---------- Barra lateral ---------- */
+.side { position: sticky; top: 84px; display: grid; gap: 18px; }
+.side .eyebrow { margin: 0; font-size: .78rem; }
+.side-nav { display: grid; gap: 4px; }
+.side-nav button {
+  display: flex; justify-content: space-between; align-items: center; gap: 8px;
+  padding: 10px 14px; border-radius: 10px; border: 0; cursor: pointer; text-align: left;
+  font: inherit; font-size: .92rem; color: var(--muted); background: transparent;
+  transition: background .2s, color .2s;
+}
+.side-nav button:hover { color: var(--text); background: color-mix(in srgb, var(--accent-soft) 60%, transparent); }
+.side-nav button.active { color: var(--accent); background: var(--accent-soft); font-weight: 600; }
+.count { min-width: 20px; padding: 1px 7px; border-radius: 99px; text-align: center; font-size: .72rem; background: var(--accent); color: var(--bg); }
+.side-foot { display: grid; gap: 10px; justify-items: start; padding-top: 16px; border-top: 1px solid var(--line); font-size: .8rem; color: var(--muted); }
+.side-foot p { overflow-wrap: anywhere; }
+
+/* ---------- Secciones ---------- */
+.view-title { display: block; font-size: 1.6rem; letter-spacing: -.5px; margin-bottom: 6px; }
+.view-sub { color: var(--muted); font-size: .92rem; max-width: 640px; margin-bottom: 24px; }
+
+/* Tarjetas de cifras */
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 24px; }
+.kpi { padding: 16px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+.kpi span { display: block; font-size: .78rem; color: var(--muted); }
+.kpi b { display: block; margin-top: 4px; font-size: 1.9rem; font-weight: 700; letter-spacing: -1px; line-height: 1.1; }
+
+/* Filtro de rango (una sola fila, encima del gráfico) */
+.filters { display: inline-flex; gap: 4px; padding: 4px; margin-bottom: 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+.seg { padding: 6px 14px; border: 0; border-radius: 7px; cursor: pointer; font: inherit; font-size: .82rem; color: var(--muted); background: transparent; }
+.seg:hover { color: var(--text); }
+.seg.active { color: var(--accent); background: var(--accent-soft); font-weight: 600; }
+
+/* ---------- Gráfico de columnas (una sola serie, un solo color) ---------- */
+.chart-card { padding: 20px 20px 16px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); transition: opacity .2s; }
+.chart-card.loading { opacity: .55; }
+.chart-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 18px; }
+.chart-head h3 { font-size: 1rem; }
+.chart-head p { font-size: .8rem; color: var(--muted); }
+
+.chart { padding-left: 36px; }
+.plot { position: relative; height: 220px; border-bottom: 1px solid var(--line); }
+.ticks > span {
+  position: absolute; left: 0; right: 0; border-top: 1px solid var(--line);
+}
+.ticks > span::before {
+  content: attr(data-v); position: absolute; left: -36px; top: -9px; width: 28px; text-align: right;
+  font-size: .72rem; color: var(--muted); font-variant-numeric: tabular-nums;
+}
+.ticks > span:first-child { border-top-color: transparent; }
+
+.bars { position: absolute; inset: 0; display: flex; align-items: flex-end; }
+.col { flex: 1; height: 100%; display: flex; align-items: flex-end; justify-content: center; padding: 0 1px; cursor: default; outline: none; }
+.bar { width: 100%; max-width: 24px; background: var(--accent); border-radius: 4px 4px 0 0; transition: opacity .15s; }
+.col:hover .bar, .col:focus-visible .bar { opacity: .7; }
+.col:focus-visible { box-shadow: inset 0 0 0 2px var(--accent-soft); border-radius: 4px; }
+
+.xaxis { display: flex; justify-content: space-between; margin-top: 8px; font-size: .74rem; color: var(--muted); }
+
+.tip {
+  position: absolute; z-index: 2; pointer-events: none; min-width: 90px; padding: 8px 10px;
+  background: var(--bg); border: 1px solid var(--line); border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .18); font-size: .78rem; color: var(--muted); transform: translate(-50%, -100%);
+}
+.tip b { display: block; font-size: 1.1rem; color: var(--text); }
+
+.tbl-wrap { max-height: 320px; overflow: auto; }
+.tbl { width: 100%; border-collapse: collapse; font-size: .88rem; }
+.tbl th, .tbl td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--line); }
+.tbl th { color: var(--muted); font-weight: 600; font-size: .78rem; }
+.tbl td:last-child, .tbl th:last-child { text-align: right; font-variant-numeric: tabular-nums; }
+
+/* ---------- Listas ---------- */
+.view .invite { max-width: 560px; }
+.cm-name { font-weight: 600; }
+.cm-date { font-size: .76rem; color: var(--muted); margin-left: 8px; }
+.cm-text { margin-top: 4px; color: var(--muted); white-space: pre-line; }
+
+/* ---------- Celular: la barra lateral pasa arriba como pestañas ---------- */
+@media (max-width: 860px) {
+  .dash { grid-template-columns: 1fr; gap: 20px; padding-top: 84px; }
+  .side { position: static; }
+  .side .eyebrow { display: none; }
+  .side-nav { display: flex; overflow-x: auto; gap: 6px; padding-bottom: 4px; }
+  .side-nav button { white-space: nowrap; border: 1px solid var(--line); }
+  .side-foot { grid-auto-flow: column; justify-content: space-between; align-items: center; width: 100%; }
+  .chart { padding-left: 30px; }
+  .ticks > span::before { left: -30px; width: 24px; }
+}

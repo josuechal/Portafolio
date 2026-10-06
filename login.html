@@ -12,6 +12,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="forms.css">
   <link rel="stylesheet" href="login.css">
 </head>
 <body>
@@ -54,30 +55,10 @@
       <button type="submit" id="submit" class="btn primary">Entrar</button>
     </form>
 
-    <!-- Sesión iniciada -->
+    <!-- Sesión iniciada (usuarios con código) -->
     <div id="session" hidden>
       <p class="session-info" id="sessionInfo"></p>
       <button type="button" id="logout" class="btn">Cerrar sesión</button>
-    </div>
-
-    <!-- Panel del administrador -->
-    <div id="admin" hidden>
-      <h2 class="admin-title">Accesos autorizados</h2>
-      <p class="hint">Autoriza un correo y se genera su código de acceso. Solo tú lo verás, una vez: entrégaselo a la persona.</p>
-
-      <form id="inviteForm" class="invite" novalidate>
-        <input type="email" id="inviteEmail" placeholder="correo@ejemplo.com" autocomplete="off" maxlength="120" required>
-        <button type="submit" id="inviteBtn" class="btn primary">Autorizar</button>
-      </form>
-      <p class="msg" id="adminMsg" role="status" aria-live="polite"></p>
-
-      <div class="codebox" id="codeBox" hidden>
-        <p>Código de acceso para <b id="codeFor"></b>. Se muestra <b>una sola vez</b>:</p>
-        <code id="codeValue"></code>
-        <button type="button" id="codeCopy" class="mini">Copiar</button>
-      </div>
-
-      <ul class="users" id="userList"></ul>
     </div>
 
     <p class="note" id="note">Solo los correos autorizados por el administrador pueden entrar.</p>
@@ -90,6 +71,7 @@
 
 <script src="script.js"></script>
 <script src="config.js"></script>
+<script src="core.js"></script>
 <script src="login.js"></script>
 </body>
 </html>
