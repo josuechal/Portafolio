@@ -6,9 +6,8 @@
   <title>Acceso | Josue Challco</title>
   <meta name="robots" content="noindex">
   <meta name="referrer" content="no-referrer">
-  <!-- Política de seguridad: solo código y estilos de este sitio; conexiones solo a este sitio y a la API.
-       Si cambias la dirección de la API en config.js, cámbiala también en connect-src. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://uti00dk-pp0469.tail817163.ts.net http://127.0.0.1:8000 http://localhost:8000; form-action 'self'; base-uri 'none'; object-src 'none'">
+  <!-- Política de seguridad: solo código y estilos de este sitio; conexiones solo a este sitio y a Supabase. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://*.supabase.co; form-action 'self'; base-uri 'none'; object-src 'none'">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -35,16 +34,10 @@
     <p class="lead" id="subtitle"></p>
 
     <form id="form" method="post" action="#" novalidate>
-      <div class="field">
+      <div class="field" id="emailWrap">
         <label for="email">Correo electrónico</label>
         <input type="email" id="email" name="email" placeholder="tu@email.com"
                autocomplete="username" maxlength="120" required>
-      </div>
-
-      <div class="field" id="codeWrap" hidden>
-        <label for="code">Código de activación</label>
-        <input type="text" id="code" name="code" placeholder="ABCD2345"
-               autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="16">
       </div>
 
       <div class="field">
@@ -71,7 +64,9 @@
     </form>
 
     <p class="extra" id="extra">
-      <button type="button" id="switchMode" class="link">Tengo un código de activación</button>
+      <button type="button" id="switchMode" class="link">Crear mi acceso</button>
+      <span aria-hidden="true"> · </span>
+      <button type="button" id="forgot" class="link">Olvidé mi contraseña</button>
     </p>
 
     <!-- Sesión iniciada -->
@@ -83,7 +78,7 @@
     <!-- Panel del administrador -->
     <div id="admin" hidden>
       <h2 class="admin-title">Accesos autorizados</h2>
-      <p class="hint">Solo los correos de esta lista pueden activar su acceso. No hay registro libre.</p>
+      <p class="hint">Solo los correos de esta lista pueden crear su acceso. Después de autorizar, avisa a la persona para que pulse «Crear mi acceso».</p>
 
       <form id="inviteForm" class="invite" novalidate>
         <input type="email" id="inviteEmail" placeholder="correo@ejemplo.com" autocomplete="off" maxlength="120" required>
@@ -91,16 +86,10 @@
       </form>
       <p class="msg" id="adminMsg" role="status" aria-live="polite"></p>
 
-      <div class="codebox" id="codeBox" hidden>
-        <p>Código de activación para <b id="codeFor"></b>. Se muestra <b>una sola vez</b> y vale 48 horas:</p>
-        <code id="codeValue"></code>
-        <button type="button" id="codeCopy" class="mini">Copiar</button>
-      </div>
-
       <ul class="users" id="userList"></ul>
     </div>
 
-    <p class="note" id="note">¿Olvidaste tu contraseña? Pide al administrador que restablezca tu acceso.</p>
+    <p class="note" id="note">Solo los correos autorizados por el administrador pueden crear su acceso.</p>
   </div>
 </main>
 
