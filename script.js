@@ -19,6 +19,10 @@ const onScroll = () => nav.classList.toggle("scrolled", window.scrollY > 10);
 window.addEventListener("scroll", onScroll, { passive: true });
 onScroll();
 
+// La foto de perfil no ofrece "abrir imagen en otra pestaña" con clic derecho
+const avatar = document.querySelector(".avatar");
+if (avatar) avatar.addEventListener("contextmenu", (e) => e.preventDefault());
+
 // Menú móvil
 document.getElementById("burger").addEventListener("click", () => menu.classList.toggle("open"));
 menu.addEventListener("click", (e) => { if (e.target.tagName === "A") menu.classList.remove("open"); });

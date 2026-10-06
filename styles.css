@@ -142,7 +142,12 @@ h1 {
   display: grid; place-items: center; overflow: hidden;
   box-shadow: 0 0 0 10px var(--bg), 0 0 0 11px var(--line), 0 20px 60px var(--side-glow);
 }
-.avatar img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+/* La foto no recibe clics ni se puede arrastrar ni seleccionar: no se abre en otra ventana */
+.avatar { user-select: none; -webkit-user-select: none; }
+.avatar img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1;
+  pointer-events: none; -webkit-user-drag: none; user-select: none;
+}
 .initials { font-size: 4rem; font-weight: 700; color: var(--accent); letter-spacing: -2px; }
 
 /* ABOUT */
