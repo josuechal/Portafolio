@@ -31,43 +31,28 @@
   <div class="auth-card reveal" id="card">
     <p class="eyebrow" id="eyebrow">Acceso</p>
     <h1 id="title">Iniciar sesión</h1>
-    <p class="lead" id="subtitle"></p>
+    <p class="lead" id="subtitle">Ingresa con tu correo y tu código de acceso.</p>
 
     <form id="form" method="post" action="#" novalidate>
-      <div class="field" id="emailWrap">
+      <div class="field">
         <label for="email">Correo electrónico</label>
         <input type="email" id="email" name="email" placeholder="tu@email.com"
                autocomplete="username" maxlength="120" required>
       </div>
 
       <div class="field">
-        <label for="password" id="passwordLabel">Contraseña</label>
+        <label for="password">Código de acceso o contraseña</label>
         <div class="pw">
           <input type="password" id="password" name="password" placeholder="••••••••"
-                 autocomplete="current-password" maxlength="128" required>
-          <button type="button" id="toggle" class="show" aria-pressed="false" aria-label="Mostrar contraseña">Mostrar</button>
+                 autocomplete="current-password" autocapitalize="off" spellcheck="false" maxlength="128" required>
+          <button type="button" id="toggle" class="show" aria-pressed="false" aria-label="Mostrar">Mostrar</button>
         </div>
-        <div id="meterWrap" hidden>
-          <div class="meter" id="meter" data-level="0"><i></i><i></i><i></i><i></i></div>
-          <p class="hint">Mínimo 6 caracteres. Más largas y con mayúsculas, números y símbolos son más seguras.</p>
-        </div>
-      </div>
-
-      <div class="field" id="confirmWrap" hidden>
-        <label for="confirm">Repite la contraseña</label>
-        <input type="password" id="confirm" name="confirm" placeholder="••••••••"
-               autocomplete="new-password" maxlength="128">
+        <p class="hint">El código te lo entrega el administrador. Escríbelo tal cual, en mayúsculas.</p>
       </div>
 
       <p class="msg" id="msg" role="status" aria-live="polite"></p>
       <button type="submit" id="submit" class="btn primary">Entrar</button>
     </form>
-
-    <p class="extra" id="extra">
-      <button type="button" id="switchMode" class="link">Crear mi acceso</button>
-      <span aria-hidden="true"> · </span>
-      <button type="button" id="forgot" class="link">Olvidé mi contraseña</button>
-    </p>
 
     <!-- Sesión iniciada -->
     <div id="session" hidden>
@@ -78,18 +63,24 @@
     <!-- Panel del administrador -->
     <div id="admin" hidden>
       <h2 class="admin-title">Accesos autorizados</h2>
-      <p class="hint">Solo los correos de esta lista pueden crear su acceso. Después de autorizar, avisa a la persona para que pulse «Crear mi acceso».</p>
+      <p class="hint">Autoriza un correo y se genera su código de acceso. Solo tú lo verás, una vez: entrégaselo a la persona.</p>
 
       <form id="inviteForm" class="invite" novalidate>
         <input type="email" id="inviteEmail" placeholder="correo@ejemplo.com" autocomplete="off" maxlength="120" required>
-        <button type="submit" class="btn primary">Autorizar</button>
+        <button type="submit" id="inviteBtn" class="btn primary">Autorizar</button>
       </form>
       <p class="msg" id="adminMsg" role="status" aria-live="polite"></p>
+
+      <div class="codebox" id="codeBox" hidden>
+        <p>Código de acceso para <b id="codeFor"></b>. Se muestra <b>una sola vez</b>:</p>
+        <code id="codeValue"></code>
+        <button type="button" id="codeCopy" class="mini">Copiar</button>
+      </div>
 
       <ul class="users" id="userList"></ul>
     </div>
 
-    <p class="note" id="note">Solo los correos autorizados por el administrador pueden crear su acceso.</p>
+    <p class="note" id="note">Solo los correos autorizados por el administrador pueden entrar.</p>
   </div>
 </main>
 
